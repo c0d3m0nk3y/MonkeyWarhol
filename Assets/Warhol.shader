@@ -5,10 +5,8 @@
 		_BlendAlpha("Blend", Range(-5,5)) = 2.5
 	}
 	SubShader {
-		Tags { "RenderType"="Opague" }
+		Tags { "RenderType"="Opaque" }
 		LOD 200
-
-//		Blend SrcAlpha OneMinusSrcAlpha
 
 		CGPROGRAM
 		#pragma surface surf Standard fullforwardshadows
