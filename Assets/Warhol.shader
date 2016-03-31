@@ -21,12 +21,16 @@
 		};
 
 		void surf(Input IN, inout SurfaceOutputStandard o) {
+			// Make sure uv is not upside down
 			#if UNITY_UV_STARTS_AT_TOP
-			_BlendAlpha = -_BlendAlpha;
+			IN.uv_MainTex = -IN.uv_MainTex;
 			#endif
 
-			float4 main = tex2D(_MainTex, -IN.uv_MainTex * 2);
-			float4 overlay = tex2D(_OverlayTex, -IN.uv_MainTex);
+			// Invert the blend range value
+			_BlendAlpha = -_BlendAlpha;
+
+			float4 main = tex2D(_MainTex, IN.uv_MainTex * 2);
+			float4 overlay = tex2D(_OverlayTex, IN.uv_MainTex);
 			fixed4 c = ((1 - _BlendAlpha) * main) + _BlendAlpha * overlay;
 			o.Albedo = c.rgb;
 			o.Alpha = c.a;
